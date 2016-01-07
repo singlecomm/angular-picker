@@ -1,0 +1,26 @@
+{
+  "name": "angular-picker",
+  "version": "0.1.0",
+  "description": "An item-picking component for AngularJS.",
+  "homepage": "https://github.com/singlecomm/angular-picker",
+  "author": "SingleComm",
+  "main": [
+    "dist/angular-picker.min.js",
+    "dist/angular-picker.min.css"
+  ],
+  "keywords": [
+    "angular",
+    "angularjs",
+    "picker"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.4.8",
+    "bootstrap": "^3.2.0",
+    "font-awesome": "^4.5.0"
+  },
+  "ignore": [
+    "*",
+    "!dist/*"
+  ]
+}

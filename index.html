@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo" ng-strict-di>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body ng-controller="DemoCtrl" style="padding: 30px;">
+    <picker choices="data.choices" ng-model="data.selectedItems"></picker>
+    <br><br>
+    <pre>{{data.selectedItems|json}}</pre>
+    <script src="bundle.js"></script>
+  </body>
+</html>
