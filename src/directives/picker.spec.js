@@ -1,8 +1,10 @@
 var module = window.module;
 import angular from 'angular';
+import 'angular-sanitize';
 
 var element, scope, choicesLen, isolateScope;
 describe('Directive: angular-picker', function() {
+  beforeEach(module('ngSanitize'));
   beforeEach(module('angularPicker'));
   beforeEach(module('src/templates/picker.html'));
   beforeEach(inject(function($rootScope, $compile) {

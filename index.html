@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body ng-controller="DemoCtrl" style="padding: 30px;">
-    <picker choices="data.choices" ng-model="data.selectedItems"></picker>
+    <picker choices="data.choices" ng-model="data.selectedItems" options="data.options"></picker>
     <br><br>
     <pre>{{data.selectedItems|json}}</pre>
     <script src="bundle.js"></script>

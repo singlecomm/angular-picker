@@ -29,14 +29,14 @@
   text-align: center;
   font-size: 18px;
   display: block;
-  line-height: 300px;
+  line-height: 290px;
   color: #ddd;
 }
 
 .picker .item-container-wrapper {
   border: 1px solid #ccc;
   border-bottom: none;
-  height: 300px;
+  height: 311px;
   overflow: auto;
 }
 .picker .buttons {
@@ -66,11 +66,12 @@
 }
 .picker .item {
   background: white;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ECECEC;
   padding: 0px 5px;
   cursor: pointer;
   height: auto;
   font-size: 13px;
+  line-height: 30px;
 
 }
 .picker .item span {
@@ -82,4 +83,9 @@
 .picker .ui-sortable-helper {
   border: 1px solid #ccc;
   cursor: move;
+}
+
+.picker .filter-highlight {
+  background-color: #ff9;
+  font-weight: bold;
 }

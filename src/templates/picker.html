@@ -9,21 +9,22 @@
     </div>
     <div class="item-container-wrapper">
       <ul class="item-container">
-        <span class="picker-message" ng-if="!vm.left.shown.length">
-          <span ng-if="vm.left.filter">No items found</span>
-          <span ng-if="!vm.left.filter">No items available</span>
+        <span class="picker-message" ng-if="!vm.left.shown.length || vm.left.loading">
+          <span ng-if="vm.left.filter && !vm.left.loading">No items found</span>
+          <span ng-if="!vm.left.filter && !vm.left.loading">No items available</span>
+          <span ng-if="vm.left.loading">Loading ...</span>
         </span>
-        <li ng-dblclick="vm.move('right', item)" ng-class="{ active: vm.isItemSelected('left', item) }" class="item lock" ng-click="vm.toggleSelected('left', item)" ng-repeat="item in vm.left.shown">
-          <span>{{vm.options.label ? vm.options.label(item) : item.label}}</span>
+        <li ng-dblclick="vm.move('right', item)" ng-class="{ active: vm.isItemSelected('left', item) }" class="item lock" ng-click="vm.toggleSelected('left', item)" ng-repeat="item in vm.left.shown track by $index" ng-if="!vm.left.loading && item.id">
+          <span ng-bind-html="(vm.options.label ? vm.options.label(item) : item.label) | highlight:vm.left.filter"></span>
         </li>
       </ul>
     </div>
     <p class="clearfix">
-      <span class="pull-left">{{ vm.left.selected.length }} selected. Showing {{ vm.left.shown.length }} of {{ vm.left.itemsLen }}.</span>
-      <span class="pull-right" ng-if="vm.left.pagesLen>1">
-        <button ng-disabled="vm.left.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('left')"><span class="fa fa-chevron-left"></span></button>
+      <span class="pull-left">{{ vm.left.selected.length }} selected. Showing {{ vm.left.shown.length || '0' }} of {{ vm.left.itemsLen }}.</span>
+      <span class="pull-right" ng-if="vm.left.pagesLen > 1 || (vm.isBackendPaginationApplied && vm.left.itemsLen > 0 && vm.left.pagesLen > 1)">
+        <button ng-disabled="vm.left.currentPage == '1' || vm.left.loading" class="btn btn-xs btn-default" ng-click="vm.previousPage('left')"><span class="fa fa-chevron-left"></span></button>
         <span>PAGE {{vm.left.currentPage}} OF {{vm.left.pagesLen}}</span>
-        <button ng-disabled="vm.left.currentPage == vm.left.pagesLen" class="btn btn-xs btn-default" ng-click="vm.nextPage('left')"><span class="fa fa-chevron-right"></span></button>
+        <button ng-disabled="(vm.left.currentPage == vm.left.pagesLen) || vm.left.loading" class="btn btn-xs btn-default" ng-click="vm.nextPage('left')"><span class="fa fa-chevron-right"></span></button>
       </span>
     </p>
   </div>
@@ -42,13 +43,13 @@
           <span ng-if="vm.right.filter">found</span>
           <span ng-if="!vm.right.filter">selected</span>
         </span>
-        <li ng-dblclick="vm.move('left', item)" ng-class="{ active: vm.isItemSelected('right', item) }" class="item" ng-click="vm.toggleSelected('right', item)" ng-repeat="item in vm.right.shown">
-          <span>{{vm.options.label ? vm.options.label(item) : item.label}}</span>
+        <li ng-dblclick="vm.move('left', item)" ng-class="{ active: vm.isItemSelected('right', item) }" class="item" ng-click="vm.toggleSelected('right', item)" ng-repeat="item in vm.right.shown track by $index" ng-if="item.id">
+          <span ng-bind-html="vm.options.label ? vm.options.label(item) : item.label | highlight:vm.right.filter"></span>
         </li>
       </ul>
     </div>
     <p class="clearfix">
-      <span class="pull-left">{{ vm.right.selected.length }} selected. Showing {{ vm.right.shown.length }} of {{ vm.right.itemsLen }}.</span>
+      <span class="pull-left">{{ vm.right.selected.length }} selected. Showing {{ vm.right.shown.length || '0' }} of {{ vm.right.itemsLen }}.</span>
       <span class="pull-right" ng-if="vm.right.pagesLen>1">
         <button ng-disabled="vm.right.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('right')"><span class="fa fa-chevron-left"></span></button>
         <span>PAGE {{vm.right.currentPage}} OF {{vm.right.pagesLen}}</span>
