@@ -1,5 +1,6 @@
 Angular-Picker
 ==============
+[![Build Status](https://snap-ci.com/singlecomm/angular-picker/branch/master/build_image)](https://snap-ci.com/singlecomm/angular-picker/branch/master)
 ![ScreenShot](https://cloud.githubusercontent.com/assets/3917887/12099721/4425c070-b2f8-11e5-95f3-1626b489d1e2.png)
 
 ----------
@@ -10,7 +11,7 @@ Requirements
  * angular-sanitize
  * bootstrap
  * font-awesome
- 
+
 Installation
 ----------
  * Install with Bower `bower install -S angular-picker`
@@ -49,8 +50,8 @@ Apply the directive:
 Development and Testing
 ----------
 
-clone and repository and then 
- 
+clone and repository and then
+
     npm install && npm start
 
 And now you can write your code in src/ directory.
@@ -61,6 +62,6 @@ LICENSE
 -------
 
 > MIT license
-> 
+>
 > Copyright (c) 2015 SingleComm http://singlecomm.com
-> 
+>
