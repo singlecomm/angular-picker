@@ -4,8 +4,8 @@
     <span class="fa fa-times clear-filter" ng-if="vm.left.filter" ng-click="vm.clearFilter('left')"></span>
     <input ng-model="vm.left.filter" type="search" class="form-control" placeholder="Filter" ng-change="vm.filterShownItems('left')" />
     <div class="buttons">
-      <button ng-click="vm.moveAll('right')" class="all" type="button"><i class="fa fa-angle-double-right"></i></button>
-      <button ng-click="vm.moveSelected('right')" class="single" type="button"><i class="fa fa-angle-right"></i></button>
+      <button type="button" ng-click="vm.moveAll('right')" class="all" type="button"><i class="fa fa-angle-double-right"></i></button>
+      <button type="button" ng-click="vm.moveSelected('right')" class="single" type="button"><i class="fa fa-angle-right"></i></button>
     </div>
     <div class="item-container-wrapper">
       <ul class="item-container">
@@ -21,9 +21,9 @@
     <p class="clearfix">
       <span class="pull-left">{{ vm.left.selected.length }} selected. Showing {{ vm.left.shown.length }} of {{ vm.left.itemsLen }}.</span>
       <span class="pull-right" ng-if="vm.left.pagesLen>1">
-        <button ng-disabled="vm.left.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('left')"><span class="fa fa-chevron-left"></span></button>
+        <button type="button" ng-disabled="vm.left.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('left')"><span class="fa fa-chevron-left"></span></button>
         <span>PAGE {{vm.left.currentPage}} OF {{vm.left.pagesLen}}</span>
-        <button ng-disabled="vm.left.currentPage == vm.left.pagesLen" class="btn btn-xs btn-default" ng-click="vm.nextPage('left')"><span class="fa fa-chevron-right"></span></button>
+        <button type="button" ng-disabled="vm.left.currentPage == vm.left.pagesLen" class="btn btn-xs btn-default" ng-click="vm.nextPage('left')"><span class="fa fa-chevron-right"></span></button>
       </span>
     </p>
   </div>
@@ -32,8 +32,8 @@
     <span class="fa fa-times clear-filter" ng-if="vm.right.filter" ng-click="vm.clearFilter('right')"></span>
     <input ng-model="vm.right.filter" type="search" class="form-control" placeholder="Filter" ng-change="vm.filterShownItems('right')" />
     <div class="buttons">
-      <button ng-click="vm.moveSelected('left')" class="single" type="button"><i class="fa fa-angle-left"></i></button>
-      <button ng-click="vm.moveAll('left')" class="all" type="button"><i class="fa fa-angle-double-left"></i></button>
+      <button type="button" ng-click="vm.moveSelected('left')" class="single" type="button"><i class="fa fa-angle-left"></i></button>
+      <button type="button" ng-click="vm.moveAll('left')" class="all" type="button"><i class="fa fa-angle-double-left"></i></button>
     </div>
     <div class="item-container-wrapper">
       <ul class="item-container">
@@ -50,9 +50,9 @@
     <p class="clearfix">
       <span class="pull-left">{{ vm.right.selected.length }} selected. Showing {{ vm.right.shown.length }} of {{ vm.right.itemsLen }}.</span>
       <span class="pull-right" ng-if="vm.right.pagesLen>1">
-        <button ng-disabled="vm.right.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('right')"><span class="fa fa-chevron-left"></span></button>
+        <button type="button" ng-disabled="vm.right.currentPage == '1'" class="btn btn-xs btn-default" ng-click="vm.previousPage('right')"><span class="fa fa-chevron-left"></span></button>
         <span>PAGE {{vm.right.currentPage}} OF {{vm.right.pagesLen}}</span>
-        <button ng-disabled="vm.right.currentPage == vm.right.pagesLen" class="btn btn-xs btn-default" ng-click="vm.nextPage('right')"><span class="fa fa-chevron-right"></span></button>
+        <button type="button" ng-disabled="vm.right.currentPage == vm.right.pagesLen" class="btn btn-xs btn-default" ng-click="vm.nextPage('right')"><span class="fa fa-chevron-right"></span></button>
       </span>
     </p>
   </div>
