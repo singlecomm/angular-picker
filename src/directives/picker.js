@@ -33,6 +33,14 @@ export default function picker() {
         vm.choices = vm.choices.concat(vm.ngModel);
       }
 
+      function uniqBy(a, key) {
+        var seen = {};
+        return a.filter(function(item) {
+          var k = key(item);
+          return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+        });
+      }
+
       vm.filterChoices = function() {
         var selectedRight = angular.copy(vm.right.items);
         vm.ngModel = angular.copy(vm.right.items);
@@ -82,6 +90,10 @@ export default function picker() {
         if (vm.left.filter) {
           vm.filterShownItems('left');
         }
+
+        vm.choices = uniqBy(vm.choices, function(item) {
+          return item.id;
+        });
       };
 
       vm.filterShownItems = function(control) {
