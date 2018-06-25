@@ -156,6 +156,20 @@ export default function picker() {
         return false;
       }
 
+      function canMove(from, numOfItems) {
+        if (
+          (
+            from === 'left' &&
+            numOfItems < vm.limit
+          ) ||
+          from === 'right' ||
+          !vm.limit
+        ) {
+          return true;
+        }
+        return false;
+      }
+
       vm.move = function(to, item) {
         if (!item) {
           return;
