@@ -186,10 +186,12 @@ export default function picker() {
         var itms = angular.copy(vm[from].items);
         vm[to].items = vm[to].items || [];
         angular.forEach(itms, function(item) {
-          vm[from].items = vm[from].items.filter(function(selectedItem) {
-            return selectedItem.id !== item.id;
-          });
-          vm[to].items.push(item);
+          if (canMove(from, vm[to].items.length)) {
+            vm[from].items = vm[from].items.filter(function(selectedItem) {
+              return selectedItem.id !== item.id;
+            });
+            vm[to].items.push(item);
+          }
         });
         vm[from].selected = [];
         vm[to].selected = [];
