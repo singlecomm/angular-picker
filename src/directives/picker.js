@@ -146,7 +146,7 @@ export default function picker() {
         if (
           (
             from === 'left' &&
-            numOfItems <= vm.limit
+            numOfItems < vm.limit
           ) ||
           from === 'right' ||
           !vm.limit

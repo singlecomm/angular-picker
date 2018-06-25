@@ -243,7 +243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      function canMove(from, numOfItems) {
-	        if (from === 'left' && numOfItems <= vm.limit || from === 'right' || !vm.limit) {
+	        if (from === 'left' && numOfItems < vm.limit || from === 'right' || !vm.limit) {
 	          return true;
 	        }
 	        return false;
