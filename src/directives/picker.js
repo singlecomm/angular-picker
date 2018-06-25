@@ -135,9 +135,7 @@ export default function picker() {
         vm.filterChoices();
       }, true);
 
-      $scope.$watchCollection(function() {
-        return vm.ngModel;
-      }, function() {
+      $scope.$watchCollection('vm.ngModel', function() {
         vm.right.items = angular.copy(vm.ngModel);
         vm.filterChoices();
       });

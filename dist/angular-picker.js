@@ -235,9 +235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.filterChoices();
 	      }, true);
 
-	      $scope.$watchCollection(function () {
-	        return vm.ngModel;
-	      }, function () {
+	      $scope.$watchCollection('vm.ngModel', function () {
 	        vm.right.items = _angular2['default'].copy(vm.ngModel);
 	        vm.filterChoices();
 	      });
