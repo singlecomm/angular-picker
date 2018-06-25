@@ -1,6 +1,6 @@
 {
   "name": "angular-picker",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/singlecomm/angular-picker",
   "description": "An item-picking component for AngularJS.",
   "main": "dist/angular-picker.min.js",
