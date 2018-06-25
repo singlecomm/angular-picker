@@ -135,10 +135,12 @@ export default function picker() {
         vm.filterChoices();
       }, true);
 
-      $scope.$watchCollection('vm.ngModel', function() {
+      $scope.$watch(function() {
+        return vm.ngModel;
+      }, function() {
         vm.right.items = angular.copy(vm.ngModel);
         vm.filterChoices();
-      });
+      }, true);
 
       function canMove(from, numOfItems) {
         if (
