@@ -110,7 +110,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    scope: {
 	      options: '=?',
 	      choices: '=',
-	      ngModel: '='
+	      ngModel: '=',
+	      limit: '<'
 	    },
 	    templateUrl: _ngtemplateHtmlTemplatesPickerHtml2['default'],
 	    controllerAs: 'vm',
@@ -126,6 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      vm.right = {};
 	      vm.options = vm.options || {};
 	      vm.pageSize = 10;
+	      vm.limit = vm.limit || null;
 	      vm.left = _angular2['default'].copy(emptyControlData);
 	      vm.right = _angular2['default'].copy(emptyControlData);
 	      vm.right.items = vm.ngModel;
@@ -240,17 +242,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.filterChoices();
 	      });
 
+	      function canMove(from, numOfItems) {
+	        if (from === 'left' && numOfItems <= vm.limit || from === 'right' || !vm.limit) {
+	          return true;
+	        }
+	        return false;
+	      }
+
 	      vm.move = function (to, item) {
 	        if (!item) {
 	          return;
 	        }
 	        var from = to === 'left' ? 'right' : 'left';
-	        vm[from].items = vm[from].items.filter(function (selectedItem) {
-	          return selectedItem.id !== item.id;
-	        });
-	        vm[to].items = vm[to].items || [];
-	        vm[to].items.push(item);
-	        vm.filterChoices();
+
+	        if (canMove(from, vm[to].items.length)) {
+	          vm[from].items = vm[from].items.filter(function (selectedItem) {
+	            return selectedItem.id !== item.id;
+	          });
+	          vm[to].items = vm[to].items || [];
+	          vm[to].items.push(item);
+	          vm.filterChoices();
+	        }
 	      };
 
 	      vm.nextPage = function (target) {
@@ -282,7 +294,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var itms = vm[from].items.slice(0);
 	        vm[to].items = vm[to].items || [];
 	        _angular2['default'].forEach(itms, function (item) {
-	          if (vm.isItemSelected(from, item)) {
+	          if (vm.isItemSelected(from, item) && canMove(from, vm[to].items.length)) {
 	            vm[from].items = vm[from].items.filter(function (selectedItem) {
 	              return selectedItem.id !== item.id;
 	            });
@@ -328,7 +340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 3 */
 /***/ function(module, exports) {
 
-	var path = '/Users/aymanjitan/Applications/angular-picker/src/templates/picker.html';
+	var path = '/home/joshuajharris/Developer/scripter/angular-picker/src/templates/picker.html';
 	var html = "<div class=\"picker row\">\n  <div class=\"col-xs-6 left-control\">\n    <label>Available</label>\n    <span class=\"fa fa-times clear-filter\" ng-if=\"vm.left.filter\" ng-click=\"vm.clearFilter('left')\"></span>\n    <input ng-model=\"vm.left.filter\" type=\"search\" class=\"form-control\" placeholder=\"Filter\" ng-change=\"vm.filterShownItems('left')\" />\n    <div class=\"buttons\">\n      <button type=\"button\" ng-click=\"vm.moveAll('right')\" class=\"all\" type=\"button\"><i class=\"fa fa-angle-double-right\"></i></button>\n      <button type=\"button\" ng-click=\"vm.moveSelected('right')\" class=\"single\" type=\"button\"><i class=\"fa fa-angle-right\"></i></button>\n    </div>\n    <div class=\"item-container-wrapper\">\n      <ul class=\"item-container\">\n        <span class=\"picker-message\" ng-if=\"!vm.left.shown.length\">\n          <span ng-if=\"vm.left.filter\">No items found</span>\n          <span ng-if=\"!vm.left.filter\">No items available</span>\n        </span>\n        <li ng-dblclick=\"vm.move('right', item)\" ng-class=\"{ active: vm.isItemSelected('left', item) }\" class=\"item lock\" ng-click=\"vm.toggleSelected('left', item)\" ng-repeat=\"item in vm.left.shown\">\n          <span>{{vm.options.label ? vm.options.label(item) : item.label}}</span>\n        </li>\n      </ul>\n    </div>\n    <p class=\"clearfix\">\n      <span class=\"pull-left\">{{ vm.left.selected.length }} selected. Showing {{ vm.left.shown.length }} of {{ vm.left.itemsLen }}.</span>\n      <span class=\"pull-right\" ng-if=\"vm.left.pagesLen>1\">\n        <button type=\"button\" ng-disabled=\"vm.left.currentPage == '1'\" class=\"btn btn-xs btn-default\" ng-click=\"vm.previousPage('left')\"><span class=\"fa fa-chevron-left\"></span></button>\n        <span>PAGE {{vm.left.currentPage}} OF {{vm.left.pagesLen}}</span>\n        <button type=\"button\" ng-disabled=\"vm.left.currentPage == vm.left.pagesLen\" class=\"btn btn-xs btn-default\" ng-click=\"vm.nextPage('left')\"><span class=\"fa fa-chevron-right\"></span></button>\n      </span>\n    </p>\n  </div>\n  <div class=\"col-xs-6 right-control\">\n    <label>Selected</label>\n    <span class=\"fa fa-times clear-filter\" ng-if=\"vm.right.filter\" ng-click=\"vm.clearFilter('right')\"></span>\n    <input ng-model=\"vm.right.filter\" type=\"search\" class=\"form-control\" placeholder=\"Filter\" ng-change=\"vm.filterShownItems('right')\" />\n    <div class=\"buttons\">\n      <button type=\"button\" ng-click=\"vm.moveSelected('left')\" class=\"single\" type=\"button\"><i class=\"fa fa-angle-left\"></i></button>\n      <button type=\"button\" ng-click=\"vm.moveAll('left')\" class=\"all\" type=\"button\"><i class=\"fa fa-angle-double-left\"></i></button>\n    </div>\n    <div class=\"item-container-wrapper\">\n      <ul class=\"item-container\">\n        <span class=\"picker-message\" ng-if=\"!vm.right.shown.length\">\n          No items\n          <span ng-if=\"vm.right.filter\">found</span>\n          <span ng-if=\"!vm.right.filter\">selected</span>\n        </span>\n        <li ng-dblclick=\"vm.move('left', item)\" ng-class=\"{ active: vm.isItemSelected('right', item) }\" class=\"item\" ng-click=\"vm.toggleSelected('right', item)\" ng-repeat=\"item in vm.right.shown\">\n          <span>{{vm.options.label ? vm.options.label(item) : item.label}}</span>\n        </li>\n      </ul>\n    </div>\n    <p class=\"clearfix\">\n      <span class=\"pull-left\">{{ vm.right.selected.length }} selected. Showing {{ vm.right.shown.length }} of {{ vm.right.itemsLen }}.</span>\n      <span class=\"pull-right\" ng-if=\"vm.right.pagesLen>1\">\n        <button type=\"button\" ng-disabled=\"vm.right.currentPage == '1'\" class=\"btn btn-xs btn-default\" ng-click=\"vm.previousPage('right')\"><span class=\"fa fa-chevron-left\"></span></button>\n        <span>PAGE {{vm.right.currentPage}} OF {{vm.right.pagesLen}}</span>\n        <button type=\"button\" ng-disabled=\"vm.right.currentPage == vm.right.pagesLen\" class=\"btn btn-xs btn-default\" ng-click=\"vm.nextPage('right')\"><span class=\"fa fa-chevron-right\"></span></button>\n      </span>\n    </p>\n  </div>\n</div>\n";
 	window.angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 	module.exports = path;

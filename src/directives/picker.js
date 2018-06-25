@@ -10,7 +10,7 @@ export default function picker() {
       options: '=?',
       choices: '=',
       ngModel: '=',
-      limit: '<',
+      limit: '<'
     },
     templateUrl: template,
     controllerAs: 'vm',
@@ -26,7 +26,7 @@ export default function picker() {
       vm.right = {};
       vm.options = vm.options || {};
       vm.pageSize = 10;
-      vm.limit = vm.limit || undefined;
+      vm.limit = vm.limit || null;
       vm.left = angular.copy(emptyControlData);
       vm.right = angular.copy(emptyControlData);
       vm.right.items = vm.ngModel;
@@ -145,11 +145,11 @@ export default function picker() {
       function canMove(from, numOfItems) {
         if (
           (
-            from === 'left'
-            && numOfItems < vm.limit
-          )
-          || from === 'right'
-          || !vm.limit
+            from === 'left' &&
+            numOfItems <= vm.limit
+          ) ||
+          from === 'right' ||
+          !vm.limit
         ) {
           return true;
         }
@@ -202,8 +202,8 @@ export default function picker() {
         vm[to].items = vm[to].items || [];
         angular.forEach(itms, function(item) {
           if (
-            vm.isItemSelected(from, item)
-            && canMove(from, vm[to].items.length)
+            vm.isItemSelected(from, item) &&
+            canMove(from, vm[to].items.length)
           ) {
             vm[from].items = vm[from].items.filter(function(selectedItem) {
               return selectedItem.id !== item.id;
