@@ -9,7 +9,8 @@ export default function picker() {
     scope: {
       options: '=?',
       choices: '=',
-      ngModel: '='
+      ngModel: '=',
+      limit: '<'
     },
     templateUrl: template,
     controllerAs: 'vm',
@@ -25,6 +26,7 @@ export default function picker() {
       vm.right = {};
       vm.options = vm.options || {};
       vm.pageSize = 10;
+      vm.limit = vm.limit || null;
       vm.left = angular.copy(emptyControlData);
       vm.right = angular.copy(emptyControlData);
       vm.right.items = vm.ngModel;
@@ -140,17 +142,34 @@ export default function picker() {
         vm.filterChoices();
       });
 
+      function canMove(from, numOfItems) {
+        if (
+          (
+            from === 'left' &&
+            numOfItems < vm.limit
+          ) ||
+          from === 'right' ||
+          !vm.limit
+        ) {
+          return true;
+        }
+        return false;
+      }
+
       vm.move = function(to, item) {
         if (!item) {
           return;
         }
         var from = to === 'left' ? 'right' : 'left';
-        vm[from].items = vm[from].items.filter(function(selectedItem) {
-          return selectedItem.id !== item.id;
-        });
-        vm[to].items = vm[to].items || [];
-        vm[to].items.push(item);
-        vm.filterChoices();
+
+        if (canMove(from, vm[to].items.length)) {
+          vm[from].items = vm[from].items.filter(function(selectedItem) {
+            return selectedItem.id !== item.id;
+          });
+          vm[to].items = vm[to].items || [];
+          vm[to].items.push(item);
+          vm.filterChoices();
+        }
       };
 
       vm.nextPage = function(target) {
@@ -182,7 +201,10 @@ export default function picker() {
         var itms = vm[from].items.slice(0);
         vm[to].items = vm[to].items || [];
         angular.forEach(itms, function(item) {
-          if (vm.isItemSelected(from, item)) {
+          if (
+            vm.isItemSelected(from, item) &&
+            canMove(from, vm[to].items.length)
+          ) {
             vm[from].items = vm[from].items.filter(function(selectedItem) {
               return selectedItem.id !== item.id;
             });
