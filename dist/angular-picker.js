@@ -236,11 +236,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }, true);
 
 	      $scope.$watch(function () {
-	        return vm.ngModel.length;
+	        return vm.ngModel;
 	      }, function () {
 	        vm.right.items = _angular2['default'].copy(vm.ngModel);
 	        vm.filterChoices();
-	      });
+	      }, true);
 
 	      function canMove(from, numOfItems) {
 	        if (from === 'left' && numOfItems < vm.limit || from === 'right' || !vm.limit) {
@@ -279,10 +279,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var itms = _angular2['default'].copy(vm[from].items);
 	        vm[to].items = vm[to].items || [];
 	        _angular2['default'].forEach(itms, function (item) {
-	          vm[from].items = vm[from].items.filter(function (selectedItem) {
-	            return selectedItem.id !== item.id;
-	          });
-	          vm[to].items.push(item);
+	          if (canMove(from, vm[to].items.length)) {
+	            vm[from].items = vm[from].items.filter(function (selectedItem) {
+	              return selectedItem.id !== item.id;
+	            });
+	            vm[to].items.push(item);
+	          }
 	        });
 	        vm[from].selected = [];
 	        vm[to].selected = [];
