@@ -235,10 +235,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.filterChoices();
 	      }, true);
 
-	      $scope.$watchCollection('vm.ngModel', function () {
+	      $scope.$watch(function () {
+	        return vm.ngModel;
+	      }, function () {
 	        vm.right.items = _angular2['default'].copy(vm.ngModel);
 	        vm.filterChoices();
-	      });
+	      }, true);
 
 	      function canMove(from, numOfItems) {
 	        if (from === 'left' && numOfItems < vm.limit || from === 'right' || !vm.limit) {
